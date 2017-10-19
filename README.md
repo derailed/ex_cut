@@ -1,6 +1,6 @@
-# Pimp
+# XCut
 
-**TODO: Add description**
+Cross Cutting concern annotation for Elixir.gs
 
 ## Installation
 
