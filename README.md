@@ -1,6 +1,6 @@
 # XCut
 
-Cross Cutting concern annotation for Elixir.gs
+Cross Cutting concern annotation for Elixir!
 
 ## Installation
 
