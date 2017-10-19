@@ -1,6 +1,6 @@
 # XCut
 
-Cross Cutting concern annotation for Elixir!
+Cross Cutting concern annotation library for Elixir!
 
 ## Installation
 
