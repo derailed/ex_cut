@@ -1,4 +1,4 @@
-# ExCut
+# ExCut `Cross-Cut
 
 <div align="center" style="margin-top:10px;">
   <img src="assets/ex_cut.png"/>
