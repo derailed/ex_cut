@@ -1,21 +1,73 @@
-# XCut
+# ExCut
 
-Cross Cutting concern annotation library for Elixir!
+<div align="center" style="margin-top:10px;">
+  <img src="assets/ex_cut_1.png"/>
+</div>
+
+[![Hex version](https://img.shields.io/hexpm/v/ex_cut.svg "Hex version")](https://hex.pm/packages/ex_ray)
+[![Hex downloads](https://img.shields.io/hexpm/dt/ex_cut.svg "Hex downloads")](https://hex.pm/packages/ex_ray)
+[![Build Status](https://semaphoreci.com/api/v1/derailed/ex_cut/branches/master/shields_badge.svg)](https://semaphoreci.com/derailed/ex_ray)
+
+
+## Motivation
+
+  ExCut defines an annotation construct that wraps a regular function and enable
+  it to be decorated with a cross-cutting concern. This provide a nice mechanism
+  to inject reusable behavior without cluttering your code base.
+
+## Documentation
+
+[ExRay](https://hexdocs.pm/ex_cut)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `pimp` to your list of dependencies in `mix.exs`:
+  Add the following dependencies to your project (Elixir or Phoenix)
 
-```elixir
-def deps do
-  [
-    {:pimp, "~> 0.1.0"}
-  ]
-end
-```
+  ```elixir
+  def deps do
+    [
+      {:ex_cut , "~> 0.1.0"}
+    ]
+  end
+  ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/pimp](https://hexdocs.pm/pimp).
+## Using
 
+  Let's take a look at ExCut in action to add logging behavior to a set of
+  functions.
+
+  ```elixir
+  defmodule Blee do
+    use ExCut, marker: :log, pre: :pre_log, post: :post_log
+
+    @log level: :info
+    def elvis(a, b), do: a + b
+
+    @log level: :debug
+    def elvis(a, b) when is_binary(a), do: a <> b
+
+    defp pre_log(ctx) do
+      msg = ">>> \#{ctx.target} with args \#{ctx.args |> inspect}"
+      case ctx.meta[:level] do
+        :info  -> Logger.info  msg
+        :debug -> Logger.debug msg
+      end
+    end
+
+    defp post_fun(_ctx, span, _res) do
+      msg = <<< \#{ctx.target} with args \#{ctx.args |> inspect}"
+      case ctx.meta[:level] do
+        :info  -> Logger.info  msg
+        :debug -> Logger.debug msg
+      end
+    end
+  end
+  ```
+
+  ExCut provisions an `ExCut.Context` with function details and metadata
+  that comes from the annotation. You can leverage this information in
+  your cross-cutting functions.
+
+---
+<img src="assets/imhoteplogo.png" width="32" height="auto"/> © 2017 Imhotep Software LLC.
+All materials licensed under [Apache v2.0](http://www.apache.org/licenses/LICENSE-2.0)
