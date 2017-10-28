@@ -1,12 +1,12 @@
 # ExCut
 
 <div align="center" style="margin-top:10px;">
-  <img src="assets/ex_cut_1.png"/>
+  <img src="assets/ex_cut.png"/>
 </div>
 
 [![Hex version](https://img.shields.io/hexpm/v/ex_cut.svg "Hex version")](https://hex.pm/packages/ex_ray)
 [![Hex downloads](https://img.shields.io/hexpm/dt/ex_cut.svg "Hex downloads")](https://hex.pm/packages/ex_ray)
-[![Build Status](https://semaphoreci.com/api/v1/derailed/ex_cut/branches/master/shields_badge.svg)](https://semaphoreci.com/derailed/ex_ray)
+[![Build Status](https://semaphoreci.com/api/v1/projects/2873a400-892d-47db-826b-79e15a263818/1595691/shields_badge.svg)](https://semaphoreci.com/imhotep/ex_cut)
 
 
 ## Motivation
