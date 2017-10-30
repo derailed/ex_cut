@@ -12,7 +12,7 @@
 ## Motivation
 
   ExCut defines an annotation construct that wraps a regular function and enable
-  it to be decorated with a cross-cutting concern. This provide a nice mechanism
+  it to be decorated with a cross-cutting concern. This provide a clean mechanism
   to inject reusable behavior without cluttering your code base.
 
 ## Documentation
@@ -21,7 +21,7 @@
 
 ## Examples
 
-[ExCut Examples](https://hexdocs.pm/ex_cut/examples)
+[ExCut Examples](https://github.com/derailed/ex_cut/examples)
 
 ## Installation
 
