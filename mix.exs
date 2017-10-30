@@ -52,8 +52,8 @@ defmodule ExCut.Mixfile do
       licenses:     ["Apache 2.0"],
       organization: "ImhotepSoftware",
       maintainers:  ["Fernand Galiana"],
-      files:        ["lib", "mix.exs", "LICENSE", "README.md"],
-      links:        %{ "GitHub" => "https://github.com/derailed/ex_cut"}
+      files:        ["lib", "mix.exs", "README.md"],
+      links:        %{"GitHub" => "https://github.com/derailed/ex_cut"}
     ]
   end
 

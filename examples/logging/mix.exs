@@ -19,7 +19,7 @@ defmodule Logging.Mixfile do
 
   defp deps do
     [
-      {:ex_cut, path: "../.."}
+      {:ex_cut, "~> 0.1.0"}
     ]
   end
 end
