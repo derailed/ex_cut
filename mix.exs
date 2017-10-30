@@ -6,7 +6,7 @@ defmodule ExCut.Mixfile do
       app:               :ex_cut,
       version:           "0.1.0",
       description:       description(),
-      source_url:        "https://github.om/derailed/ex_cut",
+      source_url:        "https://github.com/derailed/ex_cut",
       package:           package(),
       docs:              docs(),
       elixir:            "~> 1.5",
