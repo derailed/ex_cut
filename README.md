@@ -21,7 +21,7 @@
 
 ## Examples
 
-[ExCut Examples](https://github.com/derailed/ex_cut/examples)
+[ExCut Examples](https://github.com/derailed/ex_cut/tree/master/examples)
 
 ## Installation
 
