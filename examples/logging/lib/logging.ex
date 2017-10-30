@@ -8,7 +8,8 @@ defmodule EXCut.Log do
   def post(c, _, r), do: "< #{c.target} -> #{r}"               |> log(c)
 
   defp log(m, ctx) do
-    case ctx.meta[:level] do
+    ctx.meta[:level]
+    |> case do
       :warn  -> m |> Logger.warn
       :debug -> m |> Logger.debug
       _      -> m |> Logger.info
@@ -17,7 +18,10 @@ defmodule EXCut.Log do
 end
 
 defmodule Logging do
-  @moduledoc false
+  @moduledoc """
+  Demonstrates the use of annotation to inject cross-cutting logging to
+  functions.
+  """
   import EXCut.Log
 
   use ExCut, marker: :log, pre: :pre, post: :post

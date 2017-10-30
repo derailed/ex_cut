@@ -25,7 +25,7 @@
 
 ## Installation
 
-  Add the following dependencies to your project (Elixir or Phoenix)
+  Add the following dependencies to your Elixir project
 
   ```elixir
   def deps do
@@ -58,7 +58,8 @@
     def post(c, _, r), do: "< #{c.target} -> #{r}"               |> log(c)
 
     defp log(m, ctx) do
-      case ctx.meta[:level] do
+      ctx.meta[:level]
+      |> case do
         :warn  -> m |> Logger.warn
         :debug -> m |> Logger.debug
         _      -> m |> Logger.info
