@@ -10,6 +10,7 @@ defmodule ExCut do
   ```elixir
   defmodule Blee do
     use ExCut, marker: :log, pre: :pre_log, post: :post_log
+
     require Logger
 
     # Basic annotation setting a log level
@@ -24,26 +25,26 @@ defmodule ExCut do
     def elvis(a, b) when is_boolean(a), do: b
 
     defp pre_log(ctx) do
-      msg = ">>> \#{ctx.target} with args \#{ctx.args |> inspect}"
-      case ctx.meta[:level] do
-        :info  -> Logger.info  msg
-        :debug -> Logger.debug msg
-      end
+      ">>> \#{ctx.target} with args \#{ctx.args |> inspect}"
+      |> log(ctx)
     end
 
-    defp post_log(_ctx, _pre, _res) do
-      msg = "<<< \#{ctx.target} with args \#{ctx.args |> inspect}"
-      case ctx.meta[:level] do
-        :info  -> Logger.info  msg
-        :debug -> Logger.debug msg
-      end
+    defp post_log(ctx, _pre, _res) do
+      "<<< \#{ctx.target} with args \#{ctx.args |> inspect}"
+      |> log(ctx)
     end
 
     defp cust_pre_log(ctx) do
-      msg = "[CUSTOM!] >>> \#{ctx.target} with args \#{ctx.args |> inspect}"
-      case ctx.meta[:level] do
-        :info  -> Logger.info  msg
-        :debug -> Logger.debug msg
+      "[CUSTOM!] >>> \#{ctx.target} with args \#{ctx.args |> inspect}"
+      |> log(ctx)
+    end
+
+    defp log(m, ctx) do
+      ctx.meta[:level]
+      |> case do
+        :warn  -> m |> Logger.warn
+        :debug -> m |> Logger.debug
+        _      -> m |> Logger.info
       end
     end
   end
