@@ -43,6 +43,7 @@
   ```elixir
   defmodule Logging do
     use ExCut, marker: :log, pre: :pre, post: :post
+
     require Logger
 
     @log level: :warn
