@@ -4,8 +4,8 @@
   <img src="assets/ex_cut.png"/>
 </div>
 
-[![Hex version](https://img.shields.io/hexpm/v/ex_cut.svg "Hex version")](https://hex.pm/packages/ex_ray)
-[![Hex downloads](https://img.shields.io/hexpm/dt/ex_cut.svg "Hex downloads")](https://hex.pm/packages/ex_ray)
+[![Hex version](https://img.shields.io/hexpm/v/ex_cut.svg "Hex version")](https://hex.pm/packages/ex_cut)
+[![Hex downloads](https://img.shields.io/hexpm/dt/ex_cut.svg "Hex downloads")](https://hex.pm/packages/ex_cut)
 [![Build Status](https://semaphoreci.com/api/v1/projects/2873a400-892d-47db-826b-79e15a263818/1595691/shields_badge.svg)](https://semaphoreci.com/imhotep/ex_cut)
 
 
@@ -17,7 +17,11 @@
 
 ## Documentation
 
-[ExRay](https://hexdocs.pm/ex_cut)
+[ExCut](https://hexdocs.pm/ex_cut)
+
+## Examples
+
+[ExCut Examples](https://hexdocs.pm/ex_cut/examples)
 
 ## Installation
 
@@ -37,26 +41,43 @@
   functions.
 
   ```elixir
-  defmodule Blee do
-    use ExCut, marker: :log, pre: :pre_log, post: :post_log
+  defmodule EXCut.Log do
+    @moduledoc """
+    Cross Cutting Log concern
+    """
     require Logger
 
-    @log level: :info
-    def elvis(a, b), do: a + b
+    def pre(c)       , do: "> #{c.target}(#{c.args |> inspect})" |> log(c)
+    def post(c, _, r), do: "< #{c.target} -> #{r}"               |> log(c)
 
-    @log level: :debug
-    def elvis(a, b) when is_binary(a), do: a <> b
-
-    defp pre_log(ctx) do
-      msg = ">>> \#{ctx.target} with args \#{ctx.args |> inspect}"
+    defp log(m, ctx) do
       case ctx.meta[:level] do
-        :info  -> Logger.info  msg
-        :debug -> Logger.debug msg
+        :warn  -> m |> Logger.warn
+        :debug -> m |> Logger.debug
+        _      -> m |> Logger.info
       end
     end
+  end
 
-    defp post_log(ctx, _pre, _res) do
-      msg = "<<< \#{ctx.target} with args \#{ctx.args |> inspect}"
+  defmodule Logging do
+    @moduledoc false
+    import EXCut.Log
+
+    use ExCut, marker: :log, pre: :pre, post: :post
+
+    require Logger
+
+    @log level: :warn
+    def elvis(a, b) when is_boolean(a), do: b
+
+    @log level: :debug
+    def elvis(a, b) when is_atom(a), do: "#{a}--#{b}"
+
+    @log level: :info, pre: :cust_pre_log
+    def elvis(a, b), do: a + b
+
+    defp cust_pre_log(ctx) do
+      msg = "[CUSTOM!] >>> Calling #{ctx.target} with args #{ctx.args |> inspect}"
       case ctx.meta[:level] do
         :info  -> Logger.info  msg
         :debug -> Logger.debug msg
@@ -65,7 +86,7 @@
   end
   ```
 
-  ExCut provisions an `ExCut.Context` with function details and metadata
+  ExCut provisions an `ExCut.Context` with call details and metadata
   that comes from the annotation. You can leverage this information in
   your cross-cutting functions.
 
