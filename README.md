@@ -55,8 +55,8 @@
     @log level: :info
     def elvis(a, b), do: a + b
 
-    def pre(c)       , do: "> #{c.target}(#{c.args |> inspect})" |> log(c)
-    def post(c, _, r), do: "< #{c.target} -> #{r}"               |> log(c)
+    defp pre(c)       , do: "> #{c.target}(#{c.args |> inspect})" |> log(c)
+    defp post(c, _, r), do: "< #{c.target} -> #{r}"               |> log(c)
 
     defp log(m, ctx) do
       ctx.meta[:level]
