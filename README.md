@@ -39,6 +39,7 @@
   ```elixir
   defmodule Blee do
     use ExCut, marker: :log, pre: :pre_log, post: :post_log
+    require Logger
 
     @log level: :info
     def elvis(a, b), do: a + b
@@ -54,8 +55,8 @@
       end
     end
 
-    defp post_fun(_ctx, span, _res) do
-      msg = <<< \#{ctx.target} with args \#{ctx.args |> inspect}"
+    defp post_log(ctx, _pre, _res) do
+      msg = "<<< \#{ctx.target} with args \#{ctx.args |> inspect}"
       case ctx.meta[:level] do
         :info  -> Logger.info  msg
         :debug -> Logger.debug msg
